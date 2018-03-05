@@ -1,0 +1,28 @@
+<div class="navbar navbar-inverse bg-inverse">
+    <a class="navbar-brand">SPORTS STORE</a>
+    <cart-summary></cart-summary>
+</div>
+<div class="col-xs-3 p-a-1">
+    <div class="m-a-1">
+        <button class="btn btn-outline-primary btn-block" (click)="selectCategory()">All</button>
+    </div>
+    <div class="m-a-1" *ngFor="let cat of categories">
+        <button class="btn btn-outline-primary btn-block" (click)="selectCategory(cat)">{{cat}}</button>
+    </div>
+    <div class="m-a-1">
+        <button class="btn btn-outline-danger btn-block" routerLink="/admin">Admin</button>
+    </div>
+</div>
+<div class="col-xs-9 p-a-1">
+    <div class="card card-outline-primary" *ngFor="let product of products">
+        <h4 class="card-header">{{product.name}}
+            <span class="pull-xs-right tag-pill tag tag-success">
+                {{product.price | currency: "USD": true: "2.2-2"}}
+            </span>
+        </h4>
+        <p class="card-text p-a-1">
+            {{product.description}}
+            <button class="btn btn-primary btn-sm pull-xs-right" (click)="addToCart(product)">Add To Cart</button>
+        </p>
+    </div>
+</div>

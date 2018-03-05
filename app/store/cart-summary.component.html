@@ -1,0 +1,12 @@
+<span class="pull-right">
+    Your Cart:
+    <span *ngIf="cart.itemCount > 0">
+        {{cart.itemCount}} item's, Total is {{cart.total | currency: "USD": true: "2.2-2" }}
+    </span>
+    <span *ngIf="cart.itemCount == 0">
+        (Empty)
+    </span>
+    <button class="btn btn-sm bg-inverse" [disabled]="cart.itemCount == 0" routerLink="/cart-details">
+        <i class="fa fa-shopping-cart"></i>
+    </button>
+</span>

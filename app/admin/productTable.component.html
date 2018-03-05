@@ -1,0 +1,26 @@
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>description</th>
+            <th>Price</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products">
+            <td>{{product.name}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.price | currency: "USD": true: '2.2-2'}}</td>
+            <td>
+                <button class="btn btn-sm btn-info" [routerLink]="['/admin/main/product/edit', product.id]">Edit</button>
+            </td>
+            <td>
+                <button class="btn btn-sm btn-danger" (click) ="deleteProduct(product.id)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,48 @@
+<div *ngIf="orderSent" class="m-a-1 text-xs-center">
+    <h2>Thanks!</h2>
+    <p>Thanks for placing your order.</p>
+    <p>We'll ship your goods as soon as possible.</p>
+    <button class="btn btn-primary" routerLink="/store">Return to Store</button>
+</div>
+
+<form *ngIf="!orderSent" #form="ngForm" novalidate (ngSubmit)="submitOrder(form)" class="m-a-1">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" #name="ngModel" [(ngModel)]="order.name" required class="form-control" />
+        <span *ngIf="submitted && name.invalid" class="text-danger">Please enter valid name</span>
+    </div>
+    <div class="form-group">
+        <label>Street</label>
+        <input type="text" name="street" #street="ngModel" [(ngModel)]="order.street" required class="form-control" />
+        <span *ngIf="submitted && street.invalid" class="text-danger">Please enter valid street</span>
+    </div>
+
+    <div class="form-group">
+        <label>City</label>
+        <input type="text" name="city" #city="ngModel" [(ngModel)]="order.city" required class="form-control" />
+        <span *ngIf="submitted && city.invalid" class="text-danger">Please enter valid city</span>
+    </div>
+
+    <div class="form-group">
+        <label>State</label>
+        <input type="text" name="state" #state="ngModel" [(ngModel)]="order.state" required class="form-control" />
+        <span *ngIf="submitted && state.invalid" class="text-danger">Please enter valid state</span>
+    </div>
+
+    <div class="form-group">
+        <label>Country</label>
+        <input type="text" name="country" #country="ngModel" [(ngModel)]="order.country" required class="form-control" />
+        <span *ngIf="submitted && country.invalid" class="text-danger">Please enter valid country</span>
+    </div>
+
+    <div class="form-group">
+        <label>Zip</label>
+        <input type="text" name="zip" #zip="ngModel" [(ngModel)]="order.zip" required class="form-control" />
+        <span *ngIf="submitted && zip.invalid" class="text-danger">Please enter valid Zip</span>
+    </div>
+
+    <div class="text-md-center">
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button class="btn btn-danger" (click)="reset(form)">Reset</button>
+    </div>
+</form>
