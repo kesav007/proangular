@@ -16,6 +16,9 @@ let CartDetailComponent = class CartDetailComponent {
         this.repository = repository;
         this.cart = cart;
     }
+    get style() {
+        return (this.cart.total > 0) ? "bg-light" : "bg-warning";
+    }
 };
 CartDetailComponent = __decorate([
     core_1.Component({

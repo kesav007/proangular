@@ -19,22 +19,46 @@ let ProductEditorComponent = class ProductEditorComponent {
         this.productRepository = productRepository;
         this.product = new product_1.Product();
         this.editing = true;
+        this.submitted = false;
         this.editing = activatedRoute.snapshot.params["mode"] == "edit";
         if (this.editing) {
             Object.assign(this.product, productRepository.getProduct(activatedRoute.snapshot.params["id"]));
         }
     }
     save(form) {
+        this.submitted = true;
         if (form.valid) {
             this.productRepository.save(this.product);
             this.router.navigateByUrl("/admin/main/products");
+            this.submitted = false;
         }
+    }
+    getValidationMessages(state, thingName) {
+        let thing = state.path || thingName;
+        let messages = [];
+        if (state.errors) {
+            for (let errorName in state.errors) {
+                switch (errorName) {
+                    case "required":
+                        messages.push(`you must enter a ${thing}`);
+                        break;
+                    case "minlength":
+                        messages.push(`A ${thing} must be at least ${state.errors['minlength'].requiredLength} characters`);
+                        break;
+                    case "pattern":
+                        messages.push(`The ${thing} contains illegal characters`);
+                        break;
+                }
+            }
+        }
+        return messages;
     }
 };
 ProductEditorComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        templateUrl: "productEditor.component.html"
+        templateUrl: "productEditor.component.html",
+        styleUrls: ["productEditor.component.css"]
     }), 
     __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, product_repository_1.ProductRepository])
 ], ProductEditorComponent);

@@ -7,6 +7,7 @@
 <table class="table table-stripped">
     <thead>
         <tr>
+            <th></th>
             <th>Name</th>
             <th>Description</th>
             <th>Category</th>
@@ -17,28 +18,26 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let cartLine of cart.cartLines">
+        <tr *ngFor="let cartLine of cart.cartLines; let i=index; let odd = odd" [class.bg-primary] = "odd" [class.bg-info] = "!odd">
+            <td>{{i + 1}}</td>
             <td>{{cartLine.product.name}}</td>
             <td>{{cartLine.product.description}}</td>
             <td>{{cartLine.product.category}}</td>
-            <td>{{cartLine.product.price}}</td>
+            <td>{{cartLine.product.price | currency: "USD": true: "2.2-2"}}</td>
             <td>
                 <input type="number" (change)="cart.updateQuantity(cartLine.product, $event.target.value)" [value]="cartLine.quantity">
             </td>
             <td>{{cartLine.cartLineTotal() | currency: "USD": true: "2.2-2"}}</td>
             <td>
-                <button class="btn btn-outline-danger" (click)="cart.removeLine(cartLine)">Remove</button>
+                <button class="btn btn-danger btn-block" (click)="cart.removeLine(cartLine)">Remove</button>
             </td>
         </tr>
     </tbody>
     <tfoot>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>Total</td>
+        <tr [class]="style">
+            <td colspan="6" style="text-align: right">Total</td>
             <td>{{cart.total | currency: "USD": true: "2.2-2"}}</td>
+            <td></td>
         </tr>
     </tfoot>
 </table>

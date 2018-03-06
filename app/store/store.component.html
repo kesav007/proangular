@@ -2,20 +2,41 @@
     <a class="navbar-brand">SPORTS STORE</a>
     <cart-summary></cart-summary>
 </div>
+<div class="bg-info p-a-1">
+    <div class="row">
+        <div class="col-xs-2">
+            Selected Category : {{selectedCategory || '(None)'}}
+        </div>
+        <div class="col-xs-2">
+            Product : {{selectedProduct || '(None)'}}
+        </div>
+        <div class="col-xs-2">
+            <!-- <input (input)="selectedProduct=$event.target.value"> -->
+            <input (keyup.enter)="selectedProduct=$event.target.value" [value]="selectedProduct || ''">
+        </div>
+        <div class="col-xs-2">
+            <input #productInput (input)="false">
+        </div>
+        <div class="col-xs-2">
+            <input type="text" [(ngModel)]="selectedProduct">
+        </div>
+    </div>
+</div>
 <div class="col-xs-3 p-a-1">
     <div class="m-a-1">
-        <button class="btn btn-outline-primary btn-block" (click)="selectCategory()">All</button>
+        <button class="btn btn-outline-primary btn-block" (click)="selectCategory()" [class.active]="selectedCategory == null">All</button>
     </div>
     <div class="m-a-1" *ngFor="let cat of categories">
-        <button class="btn btn-outline-primary btn-block" (click)="selectCategory(cat)">{{cat}}</button>
+        <button class="btn btn-outline-primary btn-block" (click)="selectCategory(cat)" [class.active]="selectedCategory == cat">{{cat}}</button>
     </div>
     <div class="m-a-1">
-        <button class="btn btn-outline-danger btn-block" routerLink="/admin">Admin</button>
+        <button class="btn btn-danger btn-block" routerLink="/admin">Admin</button>
     </div>
 </div>
 <div class="col-xs-9 p-a-1">
-    <div class="card card-outline-primary" *ngFor="let product of products">
-        <h4 class="card-header">{{product.name}}
+    <div class="card card-outline-primary" *ngFor="let product of products; let i=index" (mouseover)="selectedProduct=product.name; productInput.value=product.name">
+        <h4 class="card-header" [class.bg-inverse]="getSelected(product)">
+            <span>{{i + 1}}</span> {{product.name}}
             <span class="pull-xs-right tag-pill tag tag-success">
                 {{product.price | currency: "USD": true: "2.2-2"}}
             </span>
@@ -25,4 +46,5 @@
             <button class="btn btn-primary btn-sm pull-xs-right" (click)="addToCart(product)">Add To Cart</button>
         </p>
     </div>
+
 </div>

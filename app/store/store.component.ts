@@ -11,6 +11,8 @@ import { Cart } from "../model/cart";
 export class StoreComponent {
     selectedCategory: string;
 
+    selectedProduct: string;
+
     constructor(private repository: ProductRepository, private cart: Cart) { }
 
     get products(): Product[] {
@@ -25,7 +27,13 @@ export class StoreComponent {
         this.selectedCategory = selectedCategory;
     }
 
-    addToCart(product: Product) {
+    addToCart(product: Product){
         this.cart.addProduct(product);
+        
     }
+
+    getSelected(product: Product): boolean {
+        return this.selectedProduct == product.name;
+    }
+
 }

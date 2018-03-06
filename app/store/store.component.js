@@ -28,6 +28,9 @@ let StoreComponent = class StoreComponent {
     addToCart(product) {
         this.cart.addProduct(product);
     }
+    getSelected(product) {
+        return this.selectedProduct == product.name;
+    }
 };
 StoreComponent = __decorate([
     core_1.Component({
